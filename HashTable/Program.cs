@@ -195,9 +195,22 @@ namespace HashTable
                 hash.Add(element, count);
             }
             //getting the specific value from hashtable.
-            int frequency = hash.Get("they");
-            Console.WriteLine("frequency for they:\t" + frequency);
+            int frequency = hash.Get("avoidable");
+            Console.WriteLine("frequency for avoidable:\t" + frequency);
 
+            //Displaying all the elements from the linkedlist
+            Console.WriteLine();
+            Console.WriteLine("Displaying all the key value pairs in hash table");
+            hash.Display();
+
+            Console.WriteLine("**********************************************");
+
+            //removing avoidable word from the hashtable
+            hash.Remove("avoidable");
+            Console.WriteLine("Word removed from hashtable");
+            //getting the specific value from hashtable.
+            int removedWordFrequency = hash.Get("avoidable");
+            Console.WriteLine("frequency for avoidable:\t" + removedWordFrequency);
             //Displaying all the elements from the linkedlist
             Console.WriteLine();
             Console.WriteLine("Displaying all the key value pairs in hash table");
