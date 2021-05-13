@@ -9,8 +9,8 @@ namespace HashTable
     public class MyMapNode<K, V>//built key value pair hashtable
     {
         //define a member elements of this class
-        private readonly int size;//size of hashtable
-        private readonly LinkedList<keyValue<K, V>>[] items;
+        private readonly int size;//size of hashtable use within this class we cannot update this only read
+        private readonly LinkedList<keyValue<K, V>>[] items; // defining the linklist items with readonly access
 
         /// <summary>
         /// Defining a constructor
@@ -18,9 +18,9 @@ namespace HashTable
         /// <param name="size">size of hashtable is passed in it</param>
         public MyMapNode(int size)
         {
-            this.size = size;
+            this.size = size; 
             //array of linkedlist size is defined
-            this.items = new LinkedList<keyValue<K, V>>[size];
+            this.items = new LinkedList<keyValue<K, V>>[size]; // creating object of linklist with size pass to to function my map node
         }
 
 
@@ -33,41 +33,42 @@ namespace HashTable
 
 
 
-        public V Get(K key)//generic method
+        public V Get(K key)//creating generic method Get
         {
 
-            int position = GetArrayPosition(key);//call method
+            int position = GetArrayPosition(key);//call method and giving the index no of key
 
-            //linkedlist is accessed after getting the position from the array
-            //getlinkedlist method is called with position of linkedlist in array
+            //linkedlist is accessed after getting the position from the bucket of hashtable
+            //getlinkedlist method is called with position of linkedlist in bucket of hashtable
 
             LinkedList<keyValue<K, V>> linkedList = GetLinkedList(position);//identifying the position calling the getLinkedlist()
             //linkedlist contains all the key value pairs for which same hashcode was generated 
             //each key value pair in linkedlist is of data type keyValue (struct) defined at end of class.
             //foreach loop is used to access the key and values from linkedlist
-            foreach (keyValue<K, V> item in linkedList)
+            foreach (keyValue<K, V> item in linkedList) // iterating through linkist using for eachloop
             {
                 //if key element matches with the key in linkedlist, value is retuned
                 //otherwise loop is iterated.
-                if (item.Key.Equals(key))
+                if (item.Key.Equals(key)) 
                 {
-                    return item.Value;
+                    return item.Value; // returning specific  item value  using key
                 }
             }
-            return default(V);
+            return default(V);// else returing default value of linklist
         }
-        protected LinkedList<keyValue<K, V>> GetLinkedList(int position)//method and GetLinkedList having return type is Linkedlist keyvalue pair which is define line no13
+        protected LinkedList<keyValue<K, V>> GetLinkedList(int position)//method and GetLinkedList having return type is Linkedlist keyvalue pair which is define in line no 44
         {
             //linkedlist contains a data type of keyvalue.
             //position helps to findout the linkedlist in which key value pair will be inserted
-            //position is passed into array of items and stored in variable linkedlist with data type as defined below.
-            LinkedList<keyValue<K, V>> linkedList = items[position];
+            
+            LinkedList<keyValue<K, V>> linkedList = items[position];//position is passed into array of items and stored in variable linkedlist with data type as defined below.
 
-            if (linkedList == null)
+            if (linkedList == null) // if linked list is null
             {
-                linkedList = new LinkedList<keyValue<K, V>>();
+                linkedList = new LinkedList<keyValue<K, V>>(); 
                 //adding a linkedlist in the given array position
                 items[position] = linkedList;
+               
             }
             //returning linked list.
             return linkedList;
@@ -78,13 +79,14 @@ namespace HashTable
         public void Add(K key, V value)//used add method and passes 2 parameter pushing the data into hashtable using linkedlist opraton
         {
 
-            int position = GetArrayPosition(key);
+            int position = GetArrayPosition(key); ///call method and giving the index no of key
+
 
             LinkedList<keyValue<K, V>> linkedList = GetLinkedList(position);
             //for adding value in linkedlist. Struct object is defined, like a class and key and value obtained as a parameter
             //to this method are passed as parameter to object
             //keyValue struct is instatiated and stores the key and value, which is passed as one object to linkedlist.
-            keyValue<K, V> item = new keyValue<K, V>() { Key = key, Value = value };
+            keyValue<K, V> item = new keyValue<K, V>() { Key = key, Value = value }; // creating a new keyvaluepair using getters and setters
             //keyvalue is added in the linkedlist.
             linkedList.AddLast(item);
         }
@@ -138,10 +140,10 @@ namespace HashTable
     /// struct is similar to class and used to hold values
     /// </summary>
 
-    public struct keyValue<k, v>
+    public struct keyValue<k, v> // creating a structure of key value 
     {
 
-        public k Key { get; set; }
+        public k Key { get; set; } // getter and stter for key $ value 
         public v Value { get; set; }
 
     }
